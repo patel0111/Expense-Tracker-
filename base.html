@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .dark-mode .navbar, .dark-mode .offcanvas {
+            background-color: #1e1e1e !important;
+        }
+        .dark-mode .offcanvas a, .dark-mode .navbar a {
+            color: #ffffff !important;
+        }
+        .sidebar-link {
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            color: inherit;
+        }
+        .sidebar-link:hover {
+            background-color: #f0f0f0;
+        }
+        .dark-mode .sidebar-link:hover {
+            background-color: #2a2a2a;
+        }
+    </style>
+</head>
+<body class="">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary px-3">
+        <div class="container-fluid">
+            <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+                ☰
+            </button>
+            <a class="navbar-brand" href="#">Expense Tracker</a>
+            <div class="ms-auto d-flex align-items-center">
+                <span class="me-3">
+                    Welcome, {{ session.get('username', 'Guest') }}
+                </span>
+                <button id="themeToggle" class="btn btn-sm btn-secondary me-2" title="Toggle Theme">🌙</button>
+                {% if session.get('user_id') %}
+                    <a href="/logout" class="btn btn-sm btn-outline-danger">Logout</a>
+                {% else %}
+                    <a href="/login" class="btn btn-sm btn-outline-success">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <a href="/dashboard" class="sidebar-link">🏠 Dashboard</a>
+            <a href="/add-expense" class="sidebar-link">➕ Add Expense</a>
+            <a href="/view-expenses" class="sidebar-link">📄 View Expenses</a>
+            <a href="/reports" class="sidebar-link">📊 Reports</a>
+            <a href="/profile" class="sidebar-link">👤 Profile / Budget</a>
+            <a href="/export-csv" class="sidebar-link">⬇️ Export CSV</a>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container my-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        const storedTheme = localStorage.getItem('theme');
+
+        // Set theme on load
+        if (storedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.documentElement.setAttribute('data-bs-theme', 'dark');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.documentElement.setAttribute('data-bs-theme', isDark ? 'dark' : 'light');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>

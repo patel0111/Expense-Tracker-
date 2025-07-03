@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">📄 Your Expenses</h2>
+
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for expense in expenses %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>₹{{ expense[1] }}</td>
+        <td>{{ expense[2] }}</td>
+        <td>{{ expense[4] }}</td>
+        <td>{{ expense[3] }}</td>
+        <td>
+          <a href="/edit-expense/{{ expense[0] }}" class="btn btn-sm btn-warning">✏️ Edit</a>
+          <a href="/delete-expense/{{ expense[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete this expense?')">🗑️ Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

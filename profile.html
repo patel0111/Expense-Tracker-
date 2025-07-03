@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>👤 Profile & Budget Settings</h2>
+<form method="POST" class="mt-4" style="max-width: 400px;">
+    <div class="mb-3">
+        <label for="budget" class="form-label">Monthly Budget (₹):</label>
+        <input type="number" class="form-control" name="budget" id="budget" value="{{ budget or '' }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">💾 Save Budget</button>
+</form>
+{% endblock %}

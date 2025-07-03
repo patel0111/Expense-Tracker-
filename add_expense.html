@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 600px;">
+    <h2 class="mb-4">{% if edit %}✏️ Edit Expense{% else %}➕ Add New Expense{% endif %}</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount (₹)</label>
+            <input type="number" name="amount" step="0.01" class="form-control" 
+                   value="{{ expense[0] if edit else '' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Category</label>
+            <select name="category_id" class="form-select" required>
+                {% for category in categories %}
+                <option value="{{ category[0] }}"
+                    {% if edit and category[0] == expense[1] %}selected{% endif %}>
+                    {{ category[1] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="expense_date" class="form-label">Date</label>
+            <input type="date" name="expense_date" class="form-control"
+                   value="{{ expense[2] if edit else '' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="2" required>{{ expense[3] if edit else '' }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            {% if edit %}Update{% else %}Add{% endif %} Expense
+        </button>
+    </form>
+</div>
+{% endblock %}

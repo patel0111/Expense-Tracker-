@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">🏠 Dashboard</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-bg-primary">
+        <div class="card-body">
+          <h5 class="card-title">Total Expenses</h5>
+          <p class="card-text fs-3">₹ {{ total_expenses }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Monthly Budget</h5>
+          <p class="card-text fs-3">₹ {{ budget or 'Not Set' }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-bg-success">
+        <div class="card-body">
+          <h5 class="card-title">User</h5>
+          <p class="card-text fs-5">{{ username }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if budget and total_expenses > ninety_percent_budget %}
+    <div class="alert alert-warning">
+        You have used more than 90% of your budget!
+    </div>
+{% endif %}
+
+  <div class="row text-center mt-4">
+    <div class="col-md-4 mb-3">
+      <a href="/add-expense" class="btn btn-outline-primary w-100">➕ Add New Expense</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="/view-expenses" class="btn btn-outline-secondary w-100">📄 View All Expenses</a>
+    </div>
+    <div class="col-md-4 mb-3">
+      <a href="/profile" class="btn btn-outline-warning w-100">⚙️ Budget Settings</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

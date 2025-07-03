@@ -1,0 +1,83 @@
+:root {
+  --color-bg: #ffffff;
+  --color-text: #6b7280;
+  --color-primary: #111827;
+  --border-radius: 0.75rem;
+  --card-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  --font-headline: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-headline);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 100;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.nav-links a {
+  margin-left: 1.5rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.hero-section h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+  font-size: 18px;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.cta-button {
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
